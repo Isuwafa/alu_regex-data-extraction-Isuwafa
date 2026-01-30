@@ -61,3 +61,11 @@ const patterns = {
   // currency amounts with $ symbol (examples provided use $)
   currency_dollars: /\$\s?\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?\b/g,
 };
+
+/**
+ * helper: dedupe and sort matches
+ */
+function unique(arr) {
+  return Array.from(new Set(arr)).sort();
+}
+
