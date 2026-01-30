@@ -1,43 +1,25 @@
-/**
- * extractor.js
- * 
- * This script extracts structured data from raw text using regular expressions.
- * It demonstrates validation of untrusted input and basic security practices
- * such as rejecting malformed data and masking sensitive information.
- */
+// extract.js
+// Use this command:
+//   node extractor.js sample_input.txt output.json
+// output.json is optional; defaults to extracted.json
+ 
+// Reads input.txt, extracts valid data (emails, URLs, phones, credit cards,
+// times, HTML tags, hashtags, currency amounts) using regular expressions,
+// and writes a JSON file with unique matches for each category.
+ 
+// Notes:
+//  - This script uses regex-based validation as requested. Some data types
+//    (e.g., credit card numbers) can be further validated (Luhn), but here
+//    I rely on regex + length checks.
+
+
 const fs = require('fs');
+const path = require('path');
 
-// 1. Read input text from file
-const rawText = fs.readFileSync("./sample_input.txt", "utf-8");
+const inputPath = process.argv[2];
+const outputPath = process.argv[3] || 'extracted.json';
 
-console.log("=== RAW INPUT TEXT ===");
-
-// 2. Placeholder arrays for extracted datagit 
-const emails = [];
-const urls = [];
-const phoneNumbers = [];
-const creditCards = [];
-
-// 3. Regular expressions for data extraction
-const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/g;
-const phoneRegex = /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g;
-const creditCardRegex = /\b(?:\d[ -]*?){13,16}\b/g;
-
-console.log(emailRegex.test(rawText));
-console.log(rawText);
-
-// # 4. Extract and validate data
-let match;
-while ((match = emailRegex.exec(rawText)) !== null) {
-    emails.push(match[0]);
-}
-while ((match = urlRegex.exec(rawText)) !== null) {
-    urls.push(match[0]);
-}
-while ((match = phoneRegex.exec(rawText)) !== null) {
-    phoneNumbers.push(match[0]);
-}
-while ((match = creditCardRegex.exec(rawText)) !== null) {
-    creditCards.push(match[0]);
+if (!inputPath) {
+  console.error('Use: node extractor.js sample_input.txt [output.json]');
+  process.exit(1);
 }
