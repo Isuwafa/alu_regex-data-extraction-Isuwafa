@@ -1,0 +1,183 @@
+TODO:
+disposable.style.email.with+symbol@example.com
+https:/one-slash.com
+00:00
++44 20 7946 0958
+<p>Paragraph
+with newline</p>
+MasterCard Card: 5126542351161559
+----864----
+lorem
+other.email-with-hyphen@example.co.uk
+http://example.com
+09:07
++250 788 123 456
+<div><span>Broken nesting</div></span>
+----275----
+ipsum
+other.email-with-hyphen@example.co.uk
+https://example.com:8080/path
+18:30
++250 788 123 456
+<!-- This is a comment -->
+----672----
+See also
+admin@mailserver1
+https:/one-slash.com
+12:00 AM
++44 20 7946 0958
+<a href="https://example.com">link</a>
+----253----
+random-string-12345
+user@@example.com
+https://192.168.0.1/admin
+18:30
+07-88-123456
+<div><span>Broken nesting</div></span>
+Card: 9999 9999 9999 9999
+----371----
+TODO:
+disposable.style.email.with+symbol@example.com
+htttp://typo.com
+23:59
+202-555-0143
+<div class="container">Hello <b>World</b></div>
+----882----
+ipsum
+disposable.style.email.with+symbol@example.com
+ftp://ftp.example.org/resource.txt
+09:07
+123
+<img src='image.jpg' alt='a picture' />
+----395----
+Contact:
+.user@domain.com
+https:/one-slash.com
+24:00
++44 20 7946 0958
+<p>Paragraph
+with newline</p>
+----882----
+lorem
+user@.com
+https://sub.example.co.uk/path/to/page?query=1&lang=en#section
+6pm
++81-3-1234-5678
+<script>console.log('x')</script>
+Card: 6011-0000-0000-000
+----115----
+note:
+admin@mailserver1
+ftp://ftp.example.org/resource.txt
+23:59
++1-202-555-0143
+<script>console.log('x')</script>
+----996----
+random-string-12345
+user@domain..com
+ftp://ftp.example.org/resource.txt
+24:00
+202-555-0143
+<script>console.log('x')</script>
+----862----
+end.
+user@@example.com
+https://example.com:8080/path
+12:00 PM
+(202) 555-0143
+<div><span>Nested fine</span></div>
+----781----
+error404
+user@@example.com
+htttp://typo.com
+02:30 PM
+07-88-123456
+<div><span>Nested fine</span></div>
+Visa Card: 4104332181960010
+----952----
+handle with care
+user@domain..com
+https://192.168.0.1/admin
+12:00 PM
++1-202-555-0143
+<!-- This is a comment -->
+----900----
+~~broken~~
+very.common@example.com
+https://sub.example.co.uk/path/to/page?query=1&lang=en#section
+18:30
++1 (800) FLOWERS
+<img src='image.jpg' alt='a picture' />
+----779----
+random-string-12345
+user@domain..com
+ftp://ftp.example.org/resource.txt
+12:00 AM
++1 (800) FLOWERS
+<p>Paragraph
+with newline</p>
+----170----
+note:
+user@@example.com
+https://example.com:8080/path
+00:00
+2025550143
+<p>Paragraph
+with newline</p>
+Card: 37828224631000
+----731----
+note:
+admin@mailserver1
+http://256.256.256.256/invalid-ip
+23:59
++81-3-1234-5678
+<a href='javascript:alert(1)'>xss?</a>
+----124----
+TODO:
+other.email-with-hyphen@example.co.uk
+https://sub.example.co.uk/path/to/page?query=1&lang=en#section
+7:5 AM
++1-202-555-0143
+<p>Paragraph
+with newline</p>
+----236----
+~~broken~~
+other.email-with-hyphen@example.co.uk
+http://example.com
+2:30 pm
++1-202-555-0143
+<!-- This is a comment -->
+----70----
+
+--- VALID EXAMPLES ---
+
+Valid Email: alice@example.com
+Valid Email: user.name+tag+sorting@example.co.uk
+Valid URL: https://open.example.com/path?x=1
+Valid Time (12h): 11:59 PM
+Valid Time (24h): 23:59
+Valid Phone: +1-202-555-0119
+
+--- INVALID EXAMPLES ---
+
+Invalid Email: user@@example..com
+Invalid Email: user_at_example.com
+Invalid URL: http//no-colon
+Invalid Time: 25:00
+Invalid Phone: 0000-000
+Invalid Card (broken): 4111 1111 1111 1110
+Testing CC formats:
+Visa: 4104332181960010
+Visa (spaced): 4104 3321 8196 0010
+Visa: 4338908386379401
+Visa (spaced): 4338 9083 8637 9401
+MasterCard: 5126542351161559
+MasterCard (spaced): 5126 5423 5116 1559
+MasterCard: 2221940781618495
+MasterCard (spaced): 2221 9407 8161 8495
+Amex: 345931034131647
+Amex (spaced): 3459 3103 4131 647
+Discover: 6011752553419282
+Discover (spaced): 6011 7525 5341 9282
+########################################
+File generated: 2026-01-29T14:20:18.294656
