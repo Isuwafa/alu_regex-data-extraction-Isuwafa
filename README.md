@@ -1,117 +1,166 @@
-# Data Extraction & Secure Validation Using Regex (Python)
+# Data Extraction & Validation Using Regex (JavaScript)
 
 ## Project Overview
-This project is a regex-based data extraction and validation program written in Python. It processes raw text data similar to what might be returned from an external API and extracts structured information in a safe and reliable manner.
 
-The project focuses on accuracy, robustness, and basic security awareness when handling untrusted input.
+This project is a Node.js-based data extraction and validation program written in JavaScript. It processes raw, unstructured text (such as logs, API responses, or messy text files) and extracts structured information using regular expressions.
 
----
-
-##  Objectives
-- Extract structured data from unstructured raw text using   regular expressions
-- Validate extracted data to ensure it is well-formed
-- Reject or ignore malformed and potentially unsafe input
-- Prevent unnecessary exposure of sensitive information in outputs
+The program reads a text file, validates specific data patterns, and outputs the extracted valid data into a structured JSON file.
 
 ---
 
-##  Data Types Extracted
+## Objectives
+
+- Extract structured data from unstructured raw text using regular expressions
+- Validate extracted data to ensure it follows correct formatting
+- Ignore malformed or invalid patterns
+- Organize extracted data into structured JSON format
+- Demonstrate practical use of regex in real-world text processing
+
+---
+
+## Data Types Extracted
+
 The program extracts and validates the following data types:
 
-- **Email addresses**  
-  Example formats:  
-  `john.doe@example.com`, `user@company.co.uk`
+### Email Addresses
+Examples:
+john.doe@example.com
+user@company.co.uk
 
-- **URLs**  
-  Example formats:  
-  `https://www.example.com`, `http://sub.domain.org/page`
+### URLs
+Examples:
+https://www.example.com
+https://subdomain.example.org/page
 
-- **Phone numbers**  
-  Example formats:  
-  `(123) 456-7890`, `123-456-7890`, `123.456.7890`, `+250 788 123 456`
+### Phone Numbers
+Examples:
+(123) 456-7890
+123-456-7890
+123.456.7890
 
-- **Credit card numbers**  
-  Example formats:  
-  `1234 5678 9012 3456`, `1234-5678-9012-3456`
+### Credit Card Numbers
+Examples:
+1234 5678 9012 3456
+1234-5678-9012-3456
+
+(Only valid-length card numbers between 13–19 digits are accepted.)
+
+### Time Formats
+Examples:
+14:30 (24-hour format)
+2:30 PM (12-hour format)
+
+### HTML Tags
+Examples:
+<p>
+<div class="example">
+<img src="image.jpg" alt="description">
+
+### Hashtags
+Examples:
+#example
+#ThisIsAHashtag
+
+### Currency Amounts
+Examples:
+$19.99
+$1,234.56
 
 ---
 
-##  Security Considerations
-This program assumes that not all input is trustworthy. To demonstrate security awareness:
+## How It Works
 
-- Malformed or invalid patterns are ignored
-- Unsafe URL schemes (such as `javascript:`) are rejected
-- Emails without valid domains are excluded
-- Credit card numbers are masked in the output to prevent sensitive data exposure
-- Sensitive data is not unnecessarily logged or printed in full
+1. The program reads a text file provided as input.
+2. It scans the entire file using predefined regular expressions.
+3. It extracts only valid matches for each data type.
+4. Duplicate values are removed.
+5. The results are grouped by category.
+6. The extracted data is written into a structured JSON file.
 
 ---
 
-##  Input Design
-The input consists of realistic, messy raw text that resembles production logs or API responses.  
-It includes:
+## Input
+
+The input is a messy text file that contains:
 - Valid data
-- Invalid and malformed entries
-- Mixed formatting and spacing
-- Suspicious or hostile strings
+- Invalid or malformed entries
+- Mixed formatting
+- Random text content
 
-A sample input file is provided:
+Example input file:
 sample_input.txt
 
-yaml
-Copy code
+---
+
+## Output Format
+
+The program generates a JSON file containing structured extracted data.
+
+Example output structure:
+
+{
+  "emails": [],
+  "urls": [],
+  "phones": [],
+  "credit_cards": [],
+  "times": [],
+  "html_tags": [],
+  "hashtags": [],
+  "currency_dollars": []
+}
+
+Only valid matches are included. Invalid or malformed entries are excluded.
+
+Default output file:
+extracted.json
 
 ---
 
-##  Output Format
-The extracted data is displayed in a structured and readable format, grouped by data type.  
-Invalid or unsafe entries are excluded from the output.
+## Technologies Used
 
-A sample output is provided:
-sample_output.txt
-
-yaml
-Copy code
-
----
-
-##  Technologies Used
-- **Language:** Python 3
-- **Core Concept:** Regular Expressions (Regex)
+Language: JavaScript (Node.js)
+Core Concept: Regular Expressions (Regex)
+File Handling: Node.js fs module
+Data Format: JSON
 
 ---
 
 ## How to Run the Program
-Make sure Python 3 is installed on your system.
+
+Make sure Node.js is installed on your system.
 
 Run the program using:
-python main.py
 
-yaml
-Copy code
+node extract.js input.txt output.json
+
+If no output file is specified, the program will generate:
+
+extracted.json
 
 ---
 
-##  Project Structure
-alu_regex-data-extraction-yourusername/
+## Project Structure
+
+regex-data-extraction/
 │
 ├── README.md
-├── main.py
+├── extract.js
 ├── sample_input.txt
-├── sample_output.txt
-
-yaml
-Copy code
+├── extracted.json
 
 ---
 
-##  Notes
-- All regex patterns and validation logic were written manually
-- The program emphasizes defensive handling of untrusted input
-- No user interface is included, as the focus is on regex extraction and validation logic
+## Notes
+
+- All regex patterns were manually written.
+- The program focuses on structured data extraction from unstructured text.
+- The project demonstrates backend text processing using JavaScript.
+- No frontend interface is included — this is a command-line tool.
 
 ---
 
-##  Author
-Suwafa Iradukunda  
+## Author
+
+Suwafa Iradukunda
+Bachelor in Entrepreneurial Leadership (BEL)
 
