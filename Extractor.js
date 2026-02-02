@@ -8,7 +8,7 @@
 // and writes a JSON file with unique matches for each category.
  
 // Notes:
-//  - This script uses regex-based validation as requested. Some data types
+//  - This script uses regex based validation as requested. Some data types
 //    (e.g., credit card numbers) can be further validated (Luhn), but here
 //    I rely on regex + length checks.
 
@@ -16,17 +16,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const inputPath = process.argv[2];
-const outputPath = process.argv[3] || 'extracted.json';
+const inputfile = process.argv[2];
+const outputFile = process.argv[3] || 'extracted.json';
 
-if (!inputPath) {
+if (!inputfile) {
   console.error('Use: node extractor.js sample_input.txt [output.json]');
   process.exit(1);
 }
 
-let text;
+let inputText;
 try {
-  text = fs.readFileSync(inputPath, 'utf8');
+  inputText = fs.readFileSync(inputfile, 'utf8');
 } catch (err) {
   console.error('Failed to read input file:', err.message);
   process.exit(1);
@@ -35,17 +35,17 @@ try {
 
 // This are the regex patterns that catch different data based on the matching patterns.
 
-const patterns = {
+const regexes = {
   emails: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g,
 
   // matches http/https URLs
-  urls: /\bhttps?:\/\/[^\s)'"<>{}]+\b/gi, 
+  URL: /https?:\/\/(?:www\.)?[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}(?:\/[^\s]*)?/g,
 
-  // phone numbers valid for different formats with optional country code, area code in parentheses, separators
-  phones: /\b(?:\+?\d{1,3}[-.\s]?)?(?:\(\d{2,4}\)|\d{2,4})[-.\s]?\d{2,4}[-.\s]?\d{2,5}\b/g,
+  // Phone numbers valid for different formats with optional country code, area code in parentheses, separators
+  Phone: /(?:\+\d{1,3}[-.\s]?)?(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}\b/g,
 
   // credit cards: groups of digits with optional spaces/dashes, 13-19 digits total
-  credit_cards: /\b(?:\d[ -]*?){13,19}\b/g,
+  credit_cards: /\b(?:\d{4}[-\s]?){3}\d{4}\b|\b\d{4}[-\s]?\d{6}[-\s]?\d{5}\b/g,
 
   // times: 24-hour (HH:MM) and 12-hour with AM/PM
   times_24h: /\b([01]\d|2[0-3]):[0-5]\d\b/g,
@@ -61,42 +61,42 @@ const patterns = {
   currency_dollars: /\$\s?\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?\b/g,
 };
 
-/**
- * helper: dedupe and sort matches
- */
-function unique(arr) {
-  return Array.from(new Set(arr)).sort();
+//
+ // helper: dedupe and sort matches
+ 
+function getUniqueList(array) {
+  return Array.from(new Set(array)).sort();
 }
 
-/**
- * Extract using a regex. If pattern is null or not global, ensure global.
- */
-function extractAll(text, re) {
+//
+ // Extract using a regex. If pattern is null or not global, ensure global.
+ 
+function findAllMatches(text, re) {
   if (!re) return [];
   const flags = re.flags.includes('g') ? re.flags : re.flags + 'g';
   const gRe = new RegExp(re.source, flags);
   const out = [];
-  let m;
-  while ((m = gRe.exec(text)) !== null) {
-    out.push(m[0].trim());
+  let match;
+  while ((match = gRe.exec(text)) !== null) {
+    out.push(match[0].trim());
   }
   return out;
 }
 
-const results = {};
+const extractedData = {};
 
 // emails
-results.emails = unique(extractAll(text, patterns.emails));
+extractedData.emails = getUniqueList(findAllMatches(inputText, regexes.emails));
 
 // urls
-results.urls = unique(extractAll(text, patterns.urls));
+extractedData.URL = getUniqueList(findAllMatches(inputText, regexes.URL));
 
 // phones: further normalize (strip spaces/dots) but keep displayed format as found
-results.phones = unique(extractAll(text, patterns.phones));
+extractedData.Phone = getUniqueList(findAllMatches(inputText, regexes.Phone));
 
 // credit cards: use regex to capture candidate strings, then normalize digits-only and keep those with length 13-19
-const rawCCs = extractAll(text, patterns.credit_cards);
-const normalizedCCs = rawCCs
+const validCards = findAllMatches(inputText, regexes.credit_cards);
+const cleanCards = validCards
   .map(s => s.replace(/[^\d]/g, ''))          // remove non-digits
   .filter(d => d.length >= 13 && d.length <= 19)
   .map(d => {
@@ -105,32 +105,32 @@ const normalizedCCs = rawCCs
     if (d.length === 15) return d.replace(/(\d{4})(\d{6})(\d{5})/, '$1 $2 $3');
     return d;
   });
-results.credit_cards = unique(normalizedCCs);
+extractedData.credit_cards = getUniqueList(cleanCards);
 
 // times: combine 24h and 12h, dedupe
-results.times = unique([
-  ...extractAll(text, patterns.times_24h),
-  ...extractAll(text, patterns.times_12h),
+extractedData.times = getUniqueList([
+  ...findAllMatches(inputText, regexes.times_24h),
+  ...findAllMatches(inputText, regexes.times_12h),
 ]);
 
 // html tags
-results.html_tags = unique(extractAll(text, patterns.html_tags));
+extractedData.html_tags = getUniqueList(findAllMatches(inputText, regexes.html_tags));
 
 // hashtags
-results.hashtags = unique(extractAll(text, patterns.hashtags));
+extractedData.hashtags = getUniqueList(findAllMatches(inputText, regexes.hashtags));
 
 // currency amounts ($)
-results.currency_dollars = unique(extractAll(text, patterns.currency_dollars));
+extractedData.currency_dollars = getUniqueList(findAllMatches(inputText, regexes.currency_dollars));
 
 // optionally: remove false positives (very short matches etc.)
-// (Not included here - regex selection and post-filters above should be enough for most cases)
+// (Not actually included here regex selection and post filters above should be enough for most cases)
 
 try {
-  fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf8');
-  console.log(`Extraction complete. Results saved to: ${path.resolve(outputPath)}`);
+  fs.writeFileSync(outputFile, JSON.stringify(extractedData, null, 2), 'utf8');
+  console.log(`Extraction complete. Results saved to: ${path.resolve(outputFile)}`);
   console.log('Summary:');
-  for (const k of Object.keys(results)) {
-    console.log(`  ${k}: ${results[k].length}`);
+  for (const k of Object.keys(extractedData)) {
+    console.log(`  ${k}: ${extractedData[k].length}`);
   }
 } catch (err) {
   console.error('Failed to write output file:', err.message);

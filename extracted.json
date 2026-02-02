@@ -1,0 +1,78 @@
+{
+  "emails": [
+    "alice@example.com",
+    "disposable.style.email.with+symbol@example.com",
+    "other.email-with-hyphen@example.co.uk",
+    "user.name+tag+sorting@example.co.uk",
+    "user@domain..com",
+    "user@domain.com",
+    "very.common@example.com"
+  ],
+  "URL": [
+    "http://example.com",
+    "https://example.com",
+    "https://open.example.com/path?x=1",
+    "https://sub.example.co.uk/path/to/page?query=1&lang=en#section"
+  ],
+  "Phone": [
+    "(202) 555-0143",
+    "+1-202-555-0119",
+    "+1-202-555-0143",
+    "0781618495",
+    "1034131647",
+    "202-555-0143",
+    "2025550143",
+    "2181960010",
+    "2351161559",
+    "2553419282",
+    "8224631000",
+    "8386379401"
+  ],
+  "credit_cards": [
+    "2221 9407 8161 8495",
+    "3459 310341 31647",
+    "4104 3321 8196 0010",
+    "4111 1111 1111 1110",
+    "4338 9083 8637 9401",
+    "5126 5423 5116 1559",
+    "6011 7525 5341 9282",
+    "9999 9999 9999 9999"
+  ],
+  "times": [
+    "00:00",
+    "02:30",
+    "02:30 PM",
+    "09:07",
+    "11:59",
+    "11:59 PM",
+    "12:00",
+    "12:00 AM",
+    "12:00 PM",
+    "18:30",
+    "20:18",
+    "23:59",
+    "2:30 pm"
+  ],
+  "html_tags": [
+    "<!-- This is a comment -->",
+    "</a>",
+    "</b>",
+    "</div>",
+    "</p>",
+    "</script>",
+    "</span>",
+    "<a href=\"https://example.com\">",
+    "<a href='javascript:alert(1)'>",
+    "<b>",
+    "<div class=\"container\">",
+    "<div>",
+    "<img src='image.jpg' alt='a picture' />",
+    "<p>",
+    "<script>",
+    "<span>"
+  ],
+  "hashtags": [
+    "#section"
+  ],
+  "currency_dollars": []
+}
