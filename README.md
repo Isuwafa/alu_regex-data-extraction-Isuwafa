@@ -47,8 +47,8 @@ Examples:
 
 ### Time Formats
 Examples:
-14:30 (24-hour format)
-2:30 PM (12-hour format)
+14:30 (24 hour format)
+2:30 PM (12 hour format)
 
 ### HTML Tags
 Examples:
@@ -155,7 +155,7 @@ regex-data-extraction/
 - All regex patterns were manually written.
 - The program focuses on structured data extraction from unstructured text.
 - The project demonstrates backend text processing using JavaScript.
-- No frontend interface is included — this is a command-line tool.
+- No frontend interface is included this is a commandline tool.
 
 ---
 
@@ -163,4 +163,5 @@ regex-data-extraction/
 
 Suwafa Iradukunda
 Bachelor in Entrepreneurial Leadership (BEL)
+student at African Leadership University
 

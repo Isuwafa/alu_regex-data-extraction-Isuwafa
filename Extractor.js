@@ -61,14 +61,14 @@ const regexes = {
   currency_dollars: /\$\s?\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?\b/g,
 };
 
-//
- // helper: dedupe and sort matches
+
+ // helper  dedupe and sort matches
  
 function getUniqueList(array) {
   return Array.from(new Set(array)).sort();
 }
 
-//
+
  // Extract using a regex. If pattern is null or not global, ensure global.
  
 function findAllMatches(text, re) {
