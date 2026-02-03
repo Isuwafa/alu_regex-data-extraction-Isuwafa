@@ -8,7 +8,7 @@
 // and writes a JSON file with unique matches for each category.
  
 // Notes:
-//  - This script uses regex based validation as requested. Some data types
+//   This script uses regex based validation as requested. Some data types
 //    (e.g., credit card numbers) can be further validated (Luhn), but here
 //    I rely on regex + length checks.
 
@@ -33,7 +33,7 @@ try {
 }
 
 
-// This are the regex patterns that catch different data based on the matching patterns.
+// These are the regex patterns that get different data based on the matching patterns.
 
 const regexes = {
   emails: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g,
@@ -69,7 +69,7 @@ function getUniqueList(array) {
 }
 
 
- // Extract using a regex. If pattern is null or not global, ensure global.
+ // doing extraction using a regex. If pattern is null or not global, ensure global.
  
 function findAllMatches(text, re) {
   if (!re) return [];
@@ -94,7 +94,7 @@ extractedData.URL = getUniqueList(findAllMatches(inputText, regexes.URL));
 // phones: further normalize (strip spaces/dots) but keep displayed format as found
 extractedData.Phone = getUniqueList(findAllMatches(inputText, regexes.Phone));
 
-// credit cards: use regex to capture candidate strings, then normalize digits-only and keep those with length 13-19
+// credit cards: use regex to get the  candidate strings, then normalize digits only and keep those with length 13-19
 const validCards = findAllMatches(inputText, regexes.credit_cards);
 const cleanCards = validCards
   .map(s => s.replace(/[^\d]/g, ''))          // remove non-digits
